@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
+import * as fs from 'fs/promises';
 
 @Injectable()
 export class StarWarsService {
@@ -8,7 +9,13 @@ export class StarWarsService {
     async searchCharactersByName(name: string) {
         try {
             const response = await axios.get(`${this.swapiBaseUrl}/people/?search=${name}`);
-            return response.data.results;
+            const apiResults = response.data.results;
+            const extraCharacters = await this.loadExtraCharacters();
+            const filteredExtraCharacters = extraCharacters.filter(
+                (character) => character.name.toLowerCase().includes(name.toLowerCase())
+            );
+            const allCharacters = [...apiResults, ...filteredExtraCharacters];
+            return allCharacters;
         } catch (error) {
             throw new Error(`Error searching characters: ${error.message}`);
         }
@@ -56,6 +63,19 @@ export class StarWarsService {
             return response.data;
         } catch (error) {
             throw new Error(`Error fetching vehicles: ${error.message}`);
+        }
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    private async loadExtraCharacters(): Promise<any[]> {
+        try {
+            const filePath = 'apps/middleware-server/extra_character.json';
+            const fileContent = await fs.readFile(filePath, 'utf-8');
+            const extraCharacters = JSON.parse(fileContent);
+            return extraCharacters;
+        } catch (error) {
+            console.error(`Error loading extra characters: ${error.message}`);
+            return [];
         }
     }
 }

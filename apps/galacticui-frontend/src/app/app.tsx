@@ -50,10 +50,11 @@ const [characters, setCharacters] = useState<Character[]>([]);
           />
         </div>
       </div>
-      <ul className={styles['character-grid']}>
+      <ul>
         {characters.length === 0 ? (
           <p className={styles['no-data-message']}>
             <span>Nothing to show, try searching...</span>
+            <span>Extras: Mohammad Mustakim Hassan & Redowan Ahmed</span>
           </p>
         ) : (
           <ul className={styles['character-grid']}>
