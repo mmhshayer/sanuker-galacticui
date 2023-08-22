@@ -26,7 +26,11 @@ The Next.js backend contains a `star-wars` module that serves as the API gateway
 The React frontend, `galacticui-frontend`, is responsible for the user interface. It features a main page that hosts a search input allowing users to search for Star Wars characters by name. Upon searching, the frontend interacts with the backend to fetch character data. This data is then passed to the `CharacterCard` component, which further makes API calls to retrieve details about associated vehicles, planets, films, species, and starships. The obtained information is displayed on the screen for user exploration.
 
 #### System Architecture
-galacticui-frontend (React) <--> middleware-backend (Next.js) <--> [SWAPI API](https://swapi.dev/)
+```
+galacticui-frontend (React) <--> middleware-backend (Next.js) <--> SWAPI
+                                                              <--> lcoaly searches extra_character.json
+```
+[SWAPI](https://swapi.dev/)
 
 
 ## Installation Guide
@@ -70,7 +74,9 @@ To ensure the reliability and functionality of the application, a comprehensive 
 - **Service**
   - Functions in `star-wars` service: Handle API requests and fetch data from external sources.
 
----
+- extra_character.json
+  - Contains extra character data for testing purposes.
+  - Located in `middleware-server/extra_character.json`
 
 
 ## Rationale For System Architecture
@@ -88,6 +94,12 @@ NestJS was chosen for building the backend due to its comprehensive feature set,
 ### Search Mechanism: Input with Debounce
 
 The decision to use a simple input mechanism with a debounce feature for character search was driven by a desire to provide a modern and intuitive user experience. This approach eliminates the need for a traditional form submission and makes the application more responsive by fetching results as the user types. This design choice not only improves usability but also aligns well with the application's dynamic nature.
+
+
+#### Search Mechanism Enhancement
+
+The search functionality has been enhanced to also include characters from an `extra_character.json` file. When a user searches for a character by name, the system now fetches characters from both the SWAPI API and the `extra_character.json` file. It then filters and combines the results, providing a unified search experience.
+
 
 ### Data Fetching: Promise.All
 
