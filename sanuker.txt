@@ -1,0 +1,18 @@
+[2:32 PM] Redowan Ahmed
+
+https://webchat.stellabot.com/messenger?c=64e0a61394df870fe14d9470&t=ce66696c-06c9-4efc-b5b4-4554070e8942
+
+codetest8@theredit.xyz
+
+01Asdfghj@
+
+
+1. Create a create a job application chatbot
+https://doc.stella.sanuker.com/docs/en/standard-procedures-web-overview/
+save the userdata into the "Job application result data source"
+https://doc.stella.sanuker.com/docs/en/reference-methods/#upsertdatatodatasource-updated
+
+ 
+
+2. Create a FAQ chatbot using the faq datasource
+https://doc.stella.sanuker.com/docs/en/standard-procedures-FAQ-overview/#docsNav
